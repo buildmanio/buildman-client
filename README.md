@@ -9,7 +9,7 @@ Install plugin from jetbranins marketplace :
 
 ## How to use
 - From the configuration menu (app) select the Buildman configuration type
-![Configuration Type](https://i.ibb.co/GPb2TWg/Screenshot-from-2021-09-08-14-40-55.png "Configuration type")
+![Configuration Type](https://i.ibb.co/MZZktWL/Screenshot-from-2021-09-08-17-01-05.png "Configuration type")
 - Hit the run button
 - Submit your license key or start free trial
 - Wait to Buildman build your code
