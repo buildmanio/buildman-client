@@ -1,0 +1,14 @@
+.idea/
+### Java ###
+*.class
+### Gradle ###
+.gradle
+build/
+
+files/
+src/main/java/io/buildman/TestDev.java
+plugin.log
+chain.crt
+private.pem
+local.properties
+src/main/resources/sentry.properties

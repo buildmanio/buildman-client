@@ -1,0 +1,56 @@
+plugins {
+    id 'org.jetbrains.intellij' version "1.1.4"
+}
+def Properties properties = new Properties()
+properties.load(project.rootProject.file("local.properties").newDataInputStream())
+group 'io.buildman'
+version '0.8.13'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.gradle.org/gradle/libs-releases' }
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+    implementation 'org.apache.commons:commons-lang3:3.5'
+    implementation 'org.eclipse.jgit:org.eclipse.jgit:5.2.1.201812262042-r'
+    implementation group: 'com.github.fracpete', name: 'rsync4j-all', version: '3.2.3-3'
+    implementation 'org.jooq:jool:0.9.10'
+    implementation 'commons-codec:commons-codec:1.15'
+    implementation "org.gradle:gradle-tooling-api:6.7.1"
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.12.2'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.12.2'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.2'
+    implementation 'io.sentry:sentry:4.3.0'
+    implementation 'io.sentry:sentry-logback:4.3.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-jackson:2.9.0'
+}
+
+
+// See https://github.com/JetBrains/gradle-intellij-plugin/
+intellij {
+//    version.set('203.7717.56')
+    type.set('IC')
+    plugins.set(['android'])
+    updateSinceUntilBuild.set(false)
+    localPath.set(properties.getProperty("ide.directory", ""))
+}
+tasks {
+    // Workaround from this :https://stackoverflow.com/questions/68655763/intellij-idea-android-studio-plugin-build-failed
+    instrumentCode {
+        compilerVersion = "203.7717.56"
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+runIde {
+    systemProperty "SENTRY_DSN", properties.getProperty("sentry.dsn", "")
+}

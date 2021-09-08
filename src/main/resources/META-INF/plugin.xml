@@ -1,0 +1,37 @@
+<idea-plugin>
+    <id>io.buildman.Buildman</id>
+    <name>Buildman</name>
+    <vendor email="hi@buildman.io" url="https://buildman.io">Buildman</vendor>
+
+    <description><![CDATA[
+    Buildman is an Android Studio plugin to help you cut your build time instantly and use zero resources on your side by building your code in the cloud with best-in-class hardware
+    <br />
+    Getting started:
+    1. Change the configuration from Android app to Buildman
+    2. Hit the run
+    3. Enter your license key (Get your key from https://buildman.io)
+    4. Done! Your app will build in the cloud and install on your device
+    ]]></description>
+
+    <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <idea-version since-build="193"/>
+
+    <depends>org.jetbrains.android</depends>
+    <depends>com.intellij.modules.androidstudio</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <stepsBeforeRunProvider implementation="io.buildman.task.BuildmanTaskProvider"/>
+        <configurationType implementation="io.buildman.configuration.BuildmanAndroidRunConfigurationType"/>
+    </extensions>
+    <applicationListeners>
+        <listener class="io.buildman.ProjectOpenCloseListener"
+                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
+    </applicationListeners>
+    <extensions defaultExtensionNs="com.intellij">
+        <projectService serviceImplementation="io.buildman.BuildmanService"/>
+    </extensions>
+    <extensions defaultExtensionNs="com.intellij">
+        <notificationGroup id="Buildman Notification Group" displayType="TOOL_WINDOW" />
+    </extensions>
+</idea-plugin>
